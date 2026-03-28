@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-page: #f8fafc;
+  --text-primary: #18181b;
+  --text-secondary: #71717a;
+  --border-subtle: #e4e4e7;
+}
+
+.dark {
+  --bg-page: #0f172a;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --border-subtle: #3f3f46;
+}
+
+body {
+  color: var(--text-primary);
+  background: var(--bg-page);
+}
+
+/* Thin scrollbar for chat */
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(161 161 170 / 0.5) transparent;
+}
+
+.chat-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb {
+  background-color: rgb(161 161 170 / 0.4);
+  border-radius: 9999px;
+}
