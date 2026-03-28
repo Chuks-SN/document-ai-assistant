@@ -39,7 +39,7 @@ export function ChatInput({
   };
 
   return (
-    <div className="border-t border-zinc-200 bg-white px-4 py-4 dark:border-zinc-800 dark:bg-zinc-950">
+    <div className="border-t border-zinc-200 bg-white px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] dark:border-zinc-800 dark:bg-zinc-950 sm:px-4 sm:py-4 sm:pb-4">
       <p className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
         Suggested prompts
       </p>
@@ -58,10 +58,10 @@ export function ChatInput({
       </div>
 
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        <span className="text-xs text-zinc-500 dark:text-zinc-400">
+        <span className="shrink-0 text-xs text-zinc-500 dark:text-zinc-400">
           Search in:
         </span>
-        <div className="flex gap-1 rounded-xl border border-zinc-200 bg-zinc-50 p-1 dark:border-zinc-700 dark:bg-zinc-900">
+        <div className="flex max-w-full gap-1 overflow-x-auto rounded-xl border border-zinc-200 bg-zinc-50 p-1 [-ms-overflow-style:none] [scrollbar-width:none] dark:border-zinc-700 dark:bg-zinc-900 [&::-webkit-scrollbar]:hidden">
           {SEARCH_SCOPES.map((scope) => (
             <button
               key={scope}
@@ -69,7 +69,7 @@ export function ChatInput({
               disabled={disabled}
               onClick={() => onSearchScopeChange(scope)}
               className={[
-                "rounded-lg px-2.5 py-1 text-xs font-medium transition",
+                "touch-manipulation shrink-0 rounded-lg px-3 py-2 text-xs font-medium transition sm:px-2.5 sm:py-1",
                 searchScope === scope
                   ? "bg-white text-accent-dark shadow-sm dark:bg-zinc-800 dark:text-accent-muted"
                   : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200",
@@ -106,7 +106,7 @@ export function ChatInput({
         <button
           type="submit"
           disabled={!value.trim() || disabled}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent text-white transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex h-11 min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-xl bg-accent text-white transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
           aria-label="Send message"
         >
           {sending ? (

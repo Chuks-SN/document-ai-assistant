@@ -97,7 +97,7 @@ export function UploadCard({
   return (
     <section
       id="section-upload"
-      className="shrink-0 rounded-2xl border border-zinc-200 bg-white p-6 shadow-soft dark:border-zinc-800 dark:bg-zinc-950"
+      className="shrink-0 rounded-xl border border-zinc-200 bg-white p-4 shadow-soft sm:rounded-2xl sm:p-6 dark:border-zinc-800 dark:bg-zinc-950"
     >
       <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-50">
         Upload Document
@@ -128,7 +128,7 @@ export function UploadCard({
           onDragLeave={() => setDragOver(false)}
           onDrop={onDrop}
           className={[
-            "flex min-h-[180px] cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed px-6 py-10 transition",
+            "flex min-h-[160px] cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-4 py-8 transition sm:min-h-[180px] sm:gap-3 sm:rounded-2xl sm:px-6 sm:py-10 touch-manipulation",
             dragOver
               ? "border-accent bg-accent/5"
               : "border-zinc-300 bg-zinc-50/80 dark:border-zinc-600 dark:bg-zinc-900/50",
@@ -203,7 +203,7 @@ export function UploadCard({
             type="button"
             onClick={upload}
             disabled={loading || !selectedFile}
-            className="mt-auto flex items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3 text-sm font-semibold text-white shadow-soft-sm transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-40"
+            className="mt-auto flex min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3 text-sm font-semibold text-white shadow-soft-sm transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-40"
           >
             {loading ? (
               <>

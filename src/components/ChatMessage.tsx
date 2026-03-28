@@ -16,7 +16,7 @@ export function ChatMessage({ item }: ChatMessageProps) {
     >
       <div
         className={[
-          "max-w-[min(85%,560px)] rounded-2xl px-4 py-2.5 text-[15px] leading-relaxed",
+          "max-w-[min(92%,560px)] rounded-xl px-3.5 py-2.5 text-[15px] leading-relaxed sm:max-w-[min(85%,560px)] sm:rounded-2xl sm:px-4",
           isUser
             ? "bg-accent text-white shadow-soft-sm"
             : "border border-zinc-200 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100",

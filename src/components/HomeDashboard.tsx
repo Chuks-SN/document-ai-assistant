@@ -4,7 +4,7 @@
  * App shell: orchestrates navigation highlight, uploaded file list, and chat history.
  * API: POST /api/upload (multipart), POST /api/query (JSON).
  */
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Header } from "./Header";
 import { Sidebar, type NavSection } from "./Sidebar";
 import { UploadCard } from "./UploadCard";
@@ -23,16 +23,34 @@ export function HomeDashboard() {
   const { showToast } = useToast();
   const [nav, setNav] = useState<NavSection>("upload");
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFileMeta[]>([]);
+  const skipPersistenceOnce = useRef(true);
   const [messages, setMessages] = useState<ChatMessageItem[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [sending, setSending] = useState(false);
   const [searchScope, setSearchScope] = useState<SearchScope>("All");
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  useEffect(() => {
+    setUploadedFiles(loadUploads());
+  }, []);
+
+  useEffect(() => {
+    if (skipPersistenceOnce.current) {
+      skipPersistenceOnce.current = false;
+      return;
+    }
+    saveUploads(uploadedFiles);
+  }, [uploadedFiles]);
 
   const onNavigate = useCallback((section: NavSection) => {
     setNav(section);
+    if (section === "documents") {
+      window.open("/documents", "_blank", "noopener,noreferrer");
+      return;
+    }
     if (section === "ask") scrollToId("section-chat");
-    else scrollToId("section-upload"); // upload + my documents both focus upload area
+    else scrollToId("section-upload");
   }, []);
 
   const handleSend = useCallback(async () => {
@@ -87,12 +105,17 @@ export function HomeDashboard() {
   }, [input, sending, searchScope, showToast]);
 
   return (
-    <div className="flex h-screen min-h-0 flex-col bg-[#f8fafc] dark:bg-[#0f172a]">
-      <Header />
+    <div className="flex h-[100dvh] min-h-0 flex-col bg-[#f8fafc] dark:bg-[#0f172a]">
+      <Header onMenuClick={() => setMobileNavOpen(true)} />
       <div className="flex min-h-0 flex-1">
-        <Sidebar active={nav} onNavigate={onNavigate} />
-        <main className="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto p-6 lg:p-8">
-          <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 pb-8">
+        <Sidebar
+          active={nav}
+          onNavigate={onNavigate}
+          mobileOpen={mobileNavOpen}
+          onMobileClose={() => setMobileNavOpen(false)}
+        />
+        <main className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-4 sm:gap-6 sm:p-6 lg:p-8">
+          <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 pb-6 sm:gap-6 sm:pb-8">
             <UploadCard
               files={uploadedFiles}
               onRemoveFile={(id) =>
@@ -104,7 +127,7 @@ export function HomeDashboard() {
               onError={(msg) => showToast(msg, "error")}
               onSuccess={(msg) => showToast(msg, "success")}
             />
-            <div className="min-h-[420px] shrink-0 lg:min-h-[480px]">
+            <div className="min-h-[min(52dvh,420px)] shrink-0 sm:min-h-[420px] lg:min-h-[480px]">
               <ChatWindow
                 messages={messages}
                 input={input}

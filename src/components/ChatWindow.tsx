@@ -36,7 +36,7 @@ export function ChatWindow({
   return (
     <section
       id="section-chat"
-      className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-soft dark:border-zinc-800 dark:bg-zinc-950"
+      className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-soft sm:rounded-2xl dark:border-zinc-800 dark:bg-zinc-950"
     >
       <div className="border-b border-zinc-100 px-5 py-4 dark:border-zinc-800">
         <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-50">
@@ -47,7 +47,7 @@ export function ChatWindow({
         </p>
       </div>
 
-      <div className="chat-scroll flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4 py-5">
+      <div className="chat-scroll flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto px-3 py-4 sm:gap-4 sm:px-4 sm:py-5">
         {messages.length === 0 && (
           <p className="text-center text-sm text-zinc-400 dark:text-zinc-500">
             Start by uploading a document, then ask a question below.
